@@ -31,7 +31,8 @@ fn main() {
     let args_opt = glyph_opt.zip(input_opt);
 
     if let Some((glyph, input)) = args_opt {
-        let s = if input == "-" {
+        let read_stdin = input == "-";
+        let s = if read_stdin {
             let mut s = String::new();
             std::io::Read::read_to_string(&mut std::io::stdin(), &mut s)
                 .expect("stdin should be always readable");
@@ -40,7 +41,11 @@ fn main() {
             input
         };
         let out = lib::convert(glyph, s);
-        println!("{out}");
+        if read_stdin {
+            print!("{out}");
+        } else {
+            println!("{out}");
+        }
     } else {
         eprintln!("ufg [glyph] [input]");
         eprintln!("glyph: b, i, bi, sc, bs, f, d, bf, ss, ssb, ssi, ssbi, m");
