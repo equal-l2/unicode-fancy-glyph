@@ -25,8 +25,8 @@ fn parse_into_glyph<S: AsRef<str>>(value: S) -> Option<lib::Glyph> {
 fn main() {
     let mut args = std::env::args();
     args.next().expect("argv[0] must exist on POSIX platforms");
-    let glyph_opt: Option<lib::Glyph> = args.next().and_then(parse_into_glyph);
     let input_opt = args.next();
+    let glyph_opt: Option<lib::Glyph> = args.next().and_then(parse_into_glyph);
 
     let args_opt = glyph_opt.zip(input_opt);
 
@@ -47,7 +47,7 @@ fn main() {
             println!("{out}");
         }
     } else {
-        eprintln!("ufg [glyph] [input]");
+        eprintln!("ufg [input] [glyph]");
         eprintln!("glyph: b, i, bi, sc, bs, f, d, bf, ss, ssb, ssi, ssbi, m");
         eprintln!("input: string or \"-\" (read from stdin)");
         std::process::exit(1);
